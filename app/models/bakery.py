@@ -8,6 +8,8 @@ from typing import List
 class Bakery(db.Model,SerializerMixin):
     __tablename__="bakeries"
 
+    serialize_rules=("-baked_goods.bakery",)
+
     id:Mapped[int]=mapped_column(primary_key=True)
     name:Mapped[str]
     created_at:Mapped[datetime]=mapped_column(server_default=func.now())
