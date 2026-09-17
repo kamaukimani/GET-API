@@ -1,5 +1,5 @@
 from flask import Flask 
-from .config import config
+from .config import Config
 from .db import db,migrate 
 
 
