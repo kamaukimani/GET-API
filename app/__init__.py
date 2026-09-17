@@ -2,7 +2,7 @@ from flask import Flask
 from .config import Config
 from .db import db,migrate 
 from .models import *
-from .routes import bakery_bp
+from .routes import bakery_bp,baked_good_bp
 
 
 def create_app():
@@ -14,6 +14,7 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app,db)
 
-    app.register_blueprint(bakery_bp,url_prefix="/bakery")
+    app.register_blueprint(bakery_bp,url_prefix="/bakeries")
+    app.register_blueprint(baked_good_bp,url_prefix="/baked_goods")
 
     return app
