@@ -15,6 +15,7 @@ class BakedGood(db.Model,SerializerMixin):
 
     bakery_id:Mapped[int]=mapped_column(ForeignKey("bakeries.id"))
 
+    bakery:Mapped["Bakery"]=relationship(back_populates="baked_goods")
 
     def __repr__(self):
         return f"<BakedGood ({self.id}) {self.name}, {self.price}>"
