@@ -13,3 +13,13 @@ def bakeries():
         200
     )
     return response
+@bakery_bp.route('/<int:id>')
+def bakery_by_id(id):
+    bakery=Bakery.query.filter(Bakery.id == id).first()
+    bakery_dict=bakery.to_dict()
+
+    response=make_response(
+        bakery_dict,
+        200
+    )
+    return response
