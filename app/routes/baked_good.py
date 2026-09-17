@@ -16,3 +16,16 @@ def baked_goods():
         200
     )
     return response
+
+@baked_good_bp.route('/by_price')
+def baked_goods_by_price():
+    baked_goods=[]
+    for baked_good in BakedGood.query.order_by(BakedGood.price.desc()).all():
+        baked_good_dict=baked_good.to_dict(rules=("-bakery",))
+        baked_goods.append(baked_good_dict)
+    response=make_response(
+        baked_goods,
+        200
+    )
+    return response
+
