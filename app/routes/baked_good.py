@@ -28,4 +28,15 @@ def baked_goods_by_price():
         200
     )
     return response
+@baked_good_bp.route('/most_expensive')
+def most_expensive_baked_good():
+    baked_good=BakedGood.query.order_by(BakedGood.price.desc()).first()
+    #baked_good=BakedGood.query.order_by(BakedGood.price.desc()).limit(1).all() ==> return a list
+    #you have to loop through it
+    baked_good_dict=baked_good.to_dict(rules=("-bakery",))
 
+    response=make_response(
+        baked_good_dict,
+        200
+    )
+    return response
