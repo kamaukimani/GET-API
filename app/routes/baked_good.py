@@ -62,7 +62,7 @@ def most_expensive_baked_good():
         200
     )
     return response
-@baked_good_bp.route('/<int:id>')
+@baked_good_bp.route('/<int:id>',methods=["GET","DELETE"])
 def find_by_id(id):
     baked_good=BakedGood.query.filter(BakedGood.id == id).first()
 
@@ -70,9 +70,19 @@ def find_by_id(id):
         return {
             "message":"The record does not exist in our database!!!"
         },200
-    baked_good_dict=baked_good.to_dict()
-    response=make_response(
-        baked_good_dict,
-        200
-    )
-    return response
+    if request.method == "GET":
+        baked_good_dict=baked_good.to_dict()
+        response=make_response(
+            baked_good_dict,
+            200
+        )
+        return response
+    elif request.method == "DELETE":
+        db.session.delete(baked_good)
+        db.session.commit()
+
+        response={
+            "deleted_successfully":True,
+            "message":"The record has been successfully ....deleted...."
+        }
+        return make_response(response,200)
