@@ -62,3 +62,17 @@ def most_expensive_baked_good():
         200
     )
     return response
+@baked_good_bp.route('/<int:id>')
+def find_by_id(id):
+    baked_good=BakedGood.query.filter(BakedGood.id == id).first()
+
+    if baked_good is None:
+        return {
+            "message":"The record does not exist in our database!!!"
+        },200
+    baked_good_dict=baked_good.to_dict()
+    response=make_response(
+        baked_good_dict,
+        200
+    )
+    return response
